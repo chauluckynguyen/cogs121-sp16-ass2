@@ -74,8 +74,8 @@
     .attr("class", "bar")
     .attr("x", function(d, i) { return i * width / data.length; })
     .attr("width", xScale.rangeBand() - 20)
-    .attr("y", function(d){ return height - (d/40);} )
-    .attr("height", function(d) { return d; });
+    .attr("y", function(d){ return (height - (d/20));} )
+    .attr("height", function(d) { return d/20; });
 
     // chart
     // .selectAll(".bar")
