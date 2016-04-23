@@ -24,8 +24,9 @@
   var innerHeight = height - margin.top  - margin.bottom;
 
   // TODO: Input the proper values for the scales
-  var xScale = d3.scale.ordinal().rangeRoundBands([0, 10], 0);
-  var yScale = d3.scale.linear().range([30, 0]);
+  var xScale = d3.scale.ordinal().rangeRoundBands([0, width], 0);
+  var yScale = d3.scale.linear().range([0,height]);
+
 
   // Define the chart
   var chart = d3
@@ -38,36 +39,42 @@
 
   // Render the chart
   xScale.domain(data.map(function (d){ return d.name; }));
-
   // TODO: Fix the yScale domain to scale with any ratings range
-  yScale.domain([0, 5]);
+  yScale.domain([ d3.max(data, function(d){return d.rating}), 0]);
 
   // Note all these values are hard coded numbers
   // TODO:
   // 1. Consume the taco data
   // 2. Update the x, y, width, and height attributes to appropriate reflect this
-  chart
+ chart
     .selectAll(".bar")
-    .data([10, 20, 30, 40])
+    .data(data.map(function (d){ return d.rating; }))
     .enter().append("rect")
     .attr("class", "bar")
-    .attr("x", function(d, i) { return i*100; })
-    .attr("width", 100)
-    .attr("y", function(d) { return 0; })
-    .attr("height", function(d) { return d*10; });
+    .attr("x", function(d, i) { return d + i * width / data.length; })
+    .attr("width", xScale.rangeBand() - 20)
+    .attr("y", function(d){ return height - d * 40;} )
+    .attr("height", function(d) { return d * 40; });
 
   // Orient the x and y axis
-  var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+  var xAxis = d3.svg.axis().scale(xScale).orient("top");
   var yAxis = d3.svg.axis().scale(yScale).orient("left");
 
   // TODO: Append X axis
   chart
-    .append("g");
+    .append("g")
+    .attr("transform", "translate(0," + height+ ")")
+    .call(xAxis)
+    .selectAll("text")
+    .attr("y", 0)
+    .attr("x", -60)
+    .attr("transform", "rotate(-60)");
+
 
 
   // TODO: Append Y axis
   chart
-    .append("g");
+    .append("g").call(yAxis);
 
 
   // ASSIGNMENT PART 1B
