@@ -19,7 +19,7 @@
    console.log("Data is this ", data);
     // Defining the margins and chart size
     // See margin conventions for more information
-    var margin = {top: 20, right: 10, bottom: 70, left: 140},
+    var margin = {top: 20, right: 10, bottom: 100, left: 140},
         width = 960 - margin.right - margin.left,
         height = 500 - margin.top - margin.bottom;
 
@@ -72,7 +72,7 @@
     .data(data.map(function (d){ return d.number_of_respondents; }))
     .enter().append("rect")
     .attr("class", "bar")
-    .attr("x", function(d, i) { return i * 100; })
+    .attr("x", function(d, i) { return i * width / data.length; })
     .attr("width", xScale.rangeBand() - 20)
     .attr("y", function(d){ return height - (d/40);} )
     .attr("height", function(d) { return d; });
