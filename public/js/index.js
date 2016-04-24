@@ -7,11 +7,6 @@
       return;
     }
 
-   var data = [
-      {gender: data[0].gender, number_of_respondents: data[0].number_of_respondents},
-      {gender: data[1].gender, number_of_respondents: data[1].number_of_respondents},
-      {gender: data[2].gender, number_of_respondents: data[2].number_of_respondents}
-    ];
     console.log("Data", data);
 
 
