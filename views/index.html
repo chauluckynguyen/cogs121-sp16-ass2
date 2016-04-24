@@ -6,42 +6,9 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
 
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  position: relative;
-  width: 960px;
-}
-
-.axis text {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.bar {
-  fill: steelblue;
-  fill-opacity: .9;
-}
-
-.x.axis path {
-  display: none;
-}
-
-label {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-</style>
-<label><input type="checkbox"> Sort values</label>
+<h1>Profit Values by Area in San Diego County</h1>
+<h3>A tool for realtors to see what areas are the most profitable for business</h3>
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
 
@@ -96,6 +63,26 @@ d3.tsv("data.tsv", function(error, data) {
       .style("text-anchor", "end")
       .text("Frequency");
 
+ // determining bar colors 
+var max = d3.max(data, function(d) {return d.frequency;});
+// var threshold = max/3;
+var length = data.length/3; 
+console.log("length: " + data.length + " " + "division: " + Math.ceil(data.length/3));
+
+var tempData = [];
+  data.forEach(function(d){
+    tempData.push(d.frequency);
+  });
+
+  tempData.sort(); 
+
+var redT = tempData[Math.ceil(length)];
+var yellowT = tempData[Math.ceil(length*2)];
+
+d3.select("#red-text").text("(" + tempData[0] + " - " + redT + ")");
+d3.select("#yellow-text").text("(" + redT + " - " + yellowT + ")");
+d3.select("#green-text").text("(" + yellowT + " - " + tempData[tempData.length - 1] + ")");
+
   svg.selectAll(".bar")
       .data(data)
     .enter().append("rect")
@@ -103,9 +90,20 @@ d3.tsv("data.tsv", function(error, data) {
       .attr("x", function(d) { return x(d.letter); })
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.frequency); })
-      .attr("height", function(d) { return height - y(d.frequency); });
+      .attr("height", function(d) { return height - y(d.frequency); })
+      .attr("fill", function(d){  
+        if (d.frequency < redT) {
+          return "red";
+        } else if (d.frequency <= yellowT) {
+          return "yellow";
+        }
+          else{
+          return "green";
+        }
+      });
 
   d3.select("input").on("change", change);
+
 
   var sortTimeout = setTimeout(function() {
     d3.select("input").property("checked", true).each(change);
@@ -139,5 +137,16 @@ d3.tsv("data.tsv", function(error, data) {
 });
 
 </script>
+
+<div class="legend">
+  <label class="pull-right"><input type="checkbox"> Sort values</label>
+  <h3><strong>Legend</strong></h3>
+
+  <h4 class="text-center">Profit values calculated using this formula:</h4>
+  <h5 class="text-center"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Profit Value = <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Median house income + <span class="glyphicon glyphicon-home" aria-hidden="true"></span> House Value - <span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span> Poverty Count - <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Crime Rate</h5>
+  <p><span class="green-box legendkey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> High Profit Value <em id="green-text"></em></p>
+  <p><span class="yellow-box legendkey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Medium Profit Value <em id="yellow-text"></em></p>
+  <p><span class="red-box legendkey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Low Profit Value <em id="red-text"></em></p>
+</div> <!--legend -->
 
                                                                                                                                                                                                                                                                                                 
