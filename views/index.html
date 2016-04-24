@@ -10,6 +10,8 @@
 <h1>Profit Values by Area in San Diego County</h1>
 <h3>A tool for realtors to see what areas are the most profitable for business</h3>
 <script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
 <script>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -63,6 +65,14 @@ d3.tsv("data.tsv", function(error, data) {
       .style("text-anchor", "end")
       .text("Frequency");
 
+// reveal calculations
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d){ return "<strong>Frequency:</strong>" + d.frequency});
+
+svg.call(tip);
+
  // determining bar colors 
 var max = d3.max(data, function(d) {return d.frequency;});
 // var threshold = max/3;
@@ -91,6 +101,8 @@ d3.select("#green-text").text("(" + yellowT + " - " + tempData[tempData.length -
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.frequency); })
       .attr("height", function(d) { return height - y(d.frequency); })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
       .attr("fill", function(d){  
         if (d.frequency < redT) {
           return "red";
