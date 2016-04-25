@@ -48,7 +48,7 @@
 
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("height", height + margin.top + (margin.bottom+ 100))//added 
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -89,16 +89,20 @@
       svg.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
-          .call(xAxis);
+          .call(xAxis)
+	  .selectAll("text")
+	  .attr("text-anchor", "end")
+	  .attr("dx", "-5.5em")
+	  .attr("transform", "rotate(-65)");
 
       svg.append("g")
           .attr("class", "y axis")
           .call(yAxis)
         .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
+	  .style("text-anchor", "end")
           .attr("dy", ".71em")
-          .style("text-anchor", "end")
+	  .attr("transform", "rotate(-90)")
+          .attr("y", 6)
           .text("Rating");
 
     // reveal calculations
