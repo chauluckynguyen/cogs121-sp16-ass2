@@ -59,7 +59,11 @@
     var value = 0;
     var dataJson = {
         "area": String,
-        "rating": Number
+        "rating": Number,
+        "avgIncome": Number,
+        "medHouseVal": Number,
+        "povertyCount": Number,
+        "crimeCount": Number
     };
 
     var array = [];
@@ -74,6 +78,10 @@
         value = avgIncome + medHouseVal - povertyCount - parseInt(crimeCount);
         dataJson.area = data[i]["Area"];
         dataJson.rating = findRating(value);
+        dataJson.avgIncome = data[i]["Avg Income"];
+        dataJson.medHouseVal = data[i]["Median house value"];
+        dataJson.povertyCount = data[i]["Poverty_Count"];
+        dataJson.crimeCount = data[i]["Number_of_Crimes"];
         array.push(dataJson);
     }  
     console.log(array);
@@ -109,7 +117,31 @@
     var tip = d3.tip()
       .attr('class', 'd3-tip')
       .offset([-10, 0])
-      .html(function(d){ return "<strong>Frequency:</strong>" + d.rating});
+      .html(function(d){ return "<strong>Avg Income: </strong>" + d.avgIncome + "<br/>"
+        + "<strong>Median house value: </strong>" + d.medHouseVal + "<br/>"
+        + "<strong>Poverty_Count: </strong>" + d.povertyCount + "<br/>"
+        + "<strong>Number_of_Crimes: </strong>" + d.crimeCount + "<br/>"
+        + "<strong>Rating: </strong>" + d.rating + "<br/>"
+    });
+
+
+      /*
+
+          for(var i = 0; i < data.length; i++){
+        value = 0;
+        dataJson = {};
+        avgIncome  = data[i]["Avg Income"];
+        medHouseVal  = data[i]["Median house value"];
+        povertyCount  = data[i]["Poverty_Count"];
+        crimeCount  = data[i]["Number_of_Crimes"];
+        value = avgIncome + medHouseVal - povertyCount - parseInt(crimeCount);
+        dataJson.area = data[i]["Area"];
+        dataJson.rating = findRating(value);
+        array.push(dataJson);
+    }  
+
+
+      */
 
     svg.call(tip);
 
