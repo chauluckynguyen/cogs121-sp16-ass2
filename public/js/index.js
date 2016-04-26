@@ -117,7 +117,7 @@
     var tip = d3.tip()
       .attr('class', 'd3-tip')
       .offset([-10, 0])
-      .html(function(d){ return "<h5><strong>Rating: </strong><em>" + d.rating + "</em></h5>"
+      .html(function(d){ return "<h4><strong>Area: </strong><em>" + d.area + "</em><h4><h5><strong>Rating: </strong><em>" + d.rating + "</em></h5>"
         + "<p style='color: #7FE22E;'><strong>Avg Income: $</strong> <em >" + d.avgIncome + "</em></p>"
         + "<p style='color: #7FE22E;'><strong>Median House Value: $</strong> <em >" + d.medHouseVal + "</em></p>"
         + "<p style='color: red;'><strong>Poverty Count: </strong> <em >" + d.povertyCount + "</em></p>"
