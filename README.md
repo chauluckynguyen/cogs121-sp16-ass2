@@ -3,7 +3,7 @@ ASSIGNMENT 2
 
 MEMBER CONTRIBUTION
 -------------------
-**Chau Lucky Nguyen **: Styled the bar chart and legend to be informative and aesthetically pleasing. Also worked together with Jordan on the README file.  
+**Chau Lucky Nguyen**: Styled the bar chart and legend to be informative and aesthetically pleasing. Also worked together with Jordan on the README file.  
 
 **Daniel Beumjoo Kim**: Getting the queries from DELPHI database to connect to the server. Rendering some data onto bar chart and D3 issues.  
 
@@ -15,10 +15,10 @@ MEMBER CONTRIBUTION
 
 SIX DESIGN PRINCIPLES
 ---------------------
-**Discoverability/Signifiers**: 
+**Discoverability/Signifiers**:  
 In hope to make it easier for the users to find their interested points of the application, we grouped the data by area code. Because of this, users can easily see which areas in San Diego have higher or lower profit values. Users can also see the breakdown of the profit value of each area when they hover over the bars to understand exactly why a specific area has that specific rating. 
 
-**Learnability**: 
+**Learnability**:  
 To help users easily learn and remember how to interact with the application, we added a legend table that explains what each color represents and how the profit values and ratings were calculated. Green often symbolizes positivity which is why we chose green to represent high ratings. Yellow is the color of caution, which is why we chose yellow to represent areas that are mediocre. Lastly, red represents a negative emotion, which is why we chose red to represent areas that have low ratings. The legend also explains how the profit value and ratings were calculated. We added icons to helps users to better remember the formula.  
 
 **Feedback**:  
