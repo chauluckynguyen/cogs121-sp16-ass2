@@ -54,6 +54,7 @@ app.get('/delphidata', function (req, res) {
               return console.error('error running query', err);
             }
             res.json(result.rows);
+	    client.end();
         });
     });
 });
